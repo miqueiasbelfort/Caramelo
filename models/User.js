@@ -22,7 +22,6 @@ const User = db.define('User', {
     },
     isCompany: {
         type: DataTypes.BOOLEAN,
-        require: true,
     }
 })
 

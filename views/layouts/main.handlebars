@@ -27,7 +27,14 @@
             </ul>
         </nav>
     </header>
+
     <div class="container">
+        <!--Mensagens-->
+        {{#if messages.message}}
+            <div class="alertMensage">
+                {{messages.message}}
+            </div>
+        {{/if}}
         {{{body}}}
     </div>
     <!--<footer class="footer">
