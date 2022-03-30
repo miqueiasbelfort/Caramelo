@@ -1,1 +1,49 @@
-<h1>Registrar</h1>
+<div class="registerContainer">
+    <div class="registerControls">
+        <h1>Registrar</h1>
+        <form action="/auth/register" method="post">
+            <div class="formControl">
+                <label for="name">Nome</label>
+                <input type="text" name="name" placeholder="Digite o nome da empresa ou pessoa:">
+            </div>
+            
+            <div class="formControl">
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="Digite o seu E-mail:">
+            </div>
+
+            <div class="formControl">
+                <label for="city">Cidade</label>
+                <input type="text" name="city" placeholder="A cidade em que você e seu pet vivem!">
+            </div>
+
+            <div class="formControl">
+                <label for="password">Senha</label>
+                <input type="password" name="password" placeholder="Digite uma senha:">
+            </div>
+
+            <div class="formControl">
+                <label for="reptipPassword">Nome</label>
+                <input type="password" name="reptiPasswod" placeholder="Repita a senha:">
+            </div>
+
+            <div class="checkContainer">
+                <h3>Empresa ou Pessoa?</h3>
+
+                <div class="check">
+                    <div class="formControlCheck">
+                        <input type="checkbox" name="company" checked>
+                        <label for="company">Empresa</label>
+                    </div>
+                    
+                    <div class="formControlCheck">
+                        <input type="checkbox" name="person">
+                        <label for="person">Pessoa</label>
+                    </div>
+                </div>
+
+            </div>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</div>

@@ -16,4 +16,8 @@ module.exports = class AuthController {
     static register(req, res){
         res.render('auth/register')
     }
+
+    static allHealthInsurance(req, res){
+        res.render("auth/all")
+    }
 }
