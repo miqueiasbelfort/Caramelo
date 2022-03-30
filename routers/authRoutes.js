@@ -9,7 +9,7 @@ router.get('/login', AuthControllers.login)
 router.post('/login', AuthControllers.loginPost)
 router.get('/register', AuthControllers.register)
 router.post("/register", AuthControllers.registerPost)
-router.get("/healthInsurance", AuthControllers.allHealthInsurance)
+router.get("/logout", AuthControllers.logout)
 router.get('/', AuthControllers.home)
 
 module.exports = router

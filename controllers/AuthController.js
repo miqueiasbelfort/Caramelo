@@ -37,10 +37,15 @@ module.exports = class AuthController {
 
         //inicando a session
         req.session.userid = user.id
+
+        let isCompany = false
+        if(user.isCompany === 1){
+            isCompany = true
+        }
+        req.session.company = isCompany 
+
         req.flash("message", "Usuário conectado!")
-
-        req.session.save(() => res.redirect("/healthInsurance"))
-
+        req.session.save(() => res.redirect("/insurance/healthInsurance"))
 
     }
 
@@ -108,5 +113,10 @@ module.exports = class AuthController {
 
     static allHealthInsurance(req, res){
         res.render("auth/all")
+    }
+
+    static logout(req, res){
+        req.session.destroy()
+        res.redirect("/login")
     }
 }

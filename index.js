@@ -15,6 +15,7 @@ const User = require('./models/User')
 
 // Importando as rotas
 const authRoutes = require('./routers/authRoutes')
+const insuranceRoutes = require("./routers/insuranceRoutes")
 
 // configurações do handlebars
 app.engine('handlebars', exphbs.engine())
@@ -60,6 +61,7 @@ app.use((req, res, next) => {
 
 // Rotas
 app.use("/", authRoutes)
+app.use("/insurance", insuranceRoutes)
 
 // Rondando a conexão com o banco de dados
 conn.sync(/*{force: true}*/).then(() => app.listen(port)).catch(err => console.log(err))
