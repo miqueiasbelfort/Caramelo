@@ -21,9 +21,9 @@
                 {{#if session.userid}}
 
                     {{#if session.company}}
-                        <li>
-                            <a href="/insurance/create">Criar plano</a>
-                        </li>
+                        <li><a href="/insurance/create">Criar plano</a></li>
+                    {{else}}
+                        <li><a href="/insurance/my-insurance">Meus planos</a></li>
                     {{/if}}
                     
                     <li>

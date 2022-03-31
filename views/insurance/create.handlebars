@@ -3,10 +3,39 @@
         <h1>Criar plano PET</h1>
         <p>Olá {{user.name}}, vamos cuidar dos pet do mundo hoje!</p>
         <form action="/insurance/create" method="post">
+
             <div class="formControl">
                 <label for="namePlam">Nome do Plano</label>
                 <input type="text" name="namePlam" placeholder="Nome do plano de saúde pet">
             </div>
+
+            <div class="formControl">
+                <label for="price">Preço Mensal do Plano R$</label>
+                <input type="number" name="price" placeholder="EX: 200">
+            </div>
+
+            <div class="formControl">
+                <label for="comment">Comentario do Card</label>
+                <textarea name="comment" placeholder="Adicione um comentaria que aparece no card - Máximo de 200 caracteres"></textarea>
+            </div>
+
+            <div class="formControl">
+                <label for="description">Preço Mensal do Plano R$</label>
+                <textarea name="description" placeholder="Descreva aqui seu plano para o pet"></textarea>
+            </div>
+
+            <input type="submit" value="Criar Plano PET">
         </form>
+
+
+        <div class="AllMyInsurances">
+            <h1>{{user.name}}, aqui está todos os seus Planos PET</h1>
+
+            <ul>
+                <li>
+
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

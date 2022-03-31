@@ -56,7 +56,6 @@ module.exports = class AuthController {
     static async registerPost(req, res){
         const {name, email, city, password, reptiPasswod} = req.body
         let company = req.body.company
-        const person = req.body.person
 
         //validando a senha
         if(password != reptiPasswod){
@@ -100,11 +99,12 @@ module.exports = class AuthController {
 
             //iniciar a session
             req.session.userid = createUser.id
+            req.session.company = company
 
             req.flash("message", "Cadastro realizado com sucesso!")
 
             req.session.save(() => {
-                res.redirect("/healthInsurance")
+                res.redirect("/insurance/healthInsurance")
             })
 
         }catch(err){console.log(err)}

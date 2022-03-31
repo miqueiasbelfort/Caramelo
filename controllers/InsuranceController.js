@@ -1,4 +1,5 @@
 const User = require("../models/User")
+const InsurancesHel = require("../models/InsurancesHel")
 
 module.exports = class InsuranceController {
 
@@ -21,6 +22,30 @@ module.exports = class InsuranceController {
         }
 
         res.render("insurance/create", {isCompany, user})
+    }
+
+    static async createInsurancePost(req, res){
+        const { namePlam, price, comment, description } = req.body
+
+        const insurance = {
+            name: namePlam,
+            price,
+            comment,
+            description,
+            UserId: req.session.userid
+        }
+
+        try {
+
+            await InsurancesHel.create(insurance)
+            req.flash("message", "Seu plano PET foi criado!")
+            res.render("insurance/create")
+
+        } catch(err) {console.log(err)}
+    }
+
+    static myInsurances(req, res){
+        res.render("insurance/my")
     }
 
 }
