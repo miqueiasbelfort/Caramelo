@@ -4,7 +4,7 @@
 ____
 
 ## História
-* Um dia minha cachorrinha acabou sendo picado por um escorpião, nós corremos para levar ela oa veterinario, chagando lá, ela foi suber bem atendida. Pórem ela precisou ficar internanda e isso nós custou quase R$ 1000 reais por dia, então visando resolver esse problema eu crie um sistema onde podemos ver planos de sáude de qualquer clínica veterinaria perto de você, com isso almenta a concorrencia diminuindo os preços e dos planos.
+* Um dia minha cachorrinha acabou sendo picado por um escorpião, nós corremos para levar ela oa veterinario, chagando lá, ela foi super bem atendida. Pórem ela precisou ficar internanda e isso nós custou quase R$ 1000 reais por dia, então visando resolver esse problema eu crie um sistema onde podemos ver planos de sáude de qualquer clínica veterinaria perto de você, com isso almenta a concorrencia diminuindo os preços dos planos para pets.
 
 ___
 
