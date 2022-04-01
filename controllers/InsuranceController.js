@@ -10,10 +10,15 @@ module.exports = class InsuranceController {
     static async createInsurance(req, res){
         const userid = req.session.userid
 
-        const user = await User.findOne({raw: true, where: {id: userid}})
+        const user = await User.findOne({
+            raw: true,
+            where: {id: userid}
+        })
+        const insurance = await InsurancesHel.findAll({raw: true, where: {UserId: userid}})
 
         //console.log(user.name)
         let isCompany = user.isCompany
+        let active = true
 
         if(isCompany === 1){
             isCompany = true
@@ -21,7 +26,7 @@ module.exports = class InsuranceController {
             isCompany = false
         }
 
-        res.render("insurance/create", {isCompany, user})
+        res.render("insurance/create", {isCompany, user, insurance, active})
     }
 
     static async createInsurancePost(req, res){
@@ -38,14 +43,54 @@ module.exports = class InsuranceController {
         try {
 
             await InsurancesHel.create(insurance)
+
+
             req.flash("message", "Seu plano PET foi criado!")
-            res.render("insurance/create")
+            req.session.save(() => {
+                res.redirect("/insurance/create")
+            })
 
         } catch(err) {console.log(err)}
     }
 
     static myInsurances(req, res){
         res.render("insurance/my")
+    }
+
+    static async updateInsurance(req, res){
+        const id = req.params.id
+
+        const insurances = await InsurancesHel.findOne({raw: true, where: {id: id}})
+
+        res.render("insurance/update", {insurances})
+    }
+
+    static async updateInsurancePost(req, res){
+        let {namePlam, price, comment, description, check, id} = req.body
+
+        if(check === "on"){
+            check = true
+        } else {
+            check = false
+        }
+
+        const insurance = {
+            name: namePlam,
+            price,
+            comment,
+            description,
+            isActive: check
+        }
+
+        try {
+
+            await InsurancesHel.update(insurance, {where: {id: id}})
+            req.flash("message", "Plano Atualizado com sucesso!")
+            req.session.save(() => {
+                res.redirect("/insurance/create")
+            })
+
+        } catch(err) {console.log(err)}
     }
 
 }

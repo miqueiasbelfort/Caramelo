@@ -29,13 +29,24 @@
 
 
         <div class="AllMyInsurances">
-            <h1>{{user.name}}, aqui está todos os seus Planos PET</h1>
+            <h1>{{user.name}}, aqui está seus planos para PETs</h1>
 
             <ul>
-                <li>
-
-                </li>
+                {{#each insurance}}
+                    <li class="insurancesContainer">
+                        <a href="/insurance/update-insurances/{{this.id}}">
+                            <b>Nome do plano: <span>{{this.name}}</span></b>
+                            <b>Valor: R$ <span>{{this.price}}</span></b>
+                            {{#if active}}
+                                <span class="Active">Plano Ativo</span>
+                            {{else}}
+                                <span class="notActive">Plano Desativado</span>
+                            {{/if}}
+                        </a> 
+                    </li>
+                {{/each}}
             </ul>
+
         </div>
     </div>
 </div>

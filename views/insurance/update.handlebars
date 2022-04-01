@@ -1,0 +1,37 @@
+<div class="registerContainer">
+    <div class="registerControls">
+        <h1>Editar plano PET</h1>
+        <form action="/insurance/update-insurances" method="post">
+            <input type="hidden" name="id" value="{{insurances.id}}">
+
+            <div class="formControl">
+                <label for="namePlam">Nome do Plano</label>
+                <input type="text" name="namePlam" placeholder="Nome do plano de saúde pet" value="{{insurances.name}}">
+            </div>
+
+            <div class="formControl">
+                <label for="price">Preço Mensal do Plano R$</label>
+                <input type="number" name="price" placeholder="EX: 200" value="{{insurances.price}}">
+            </div>
+
+            <div class="formControl">
+                <label for="comment">Comentario do Card</label>
+                <textarea name="comment" placeholder="Adicione um comentaria que aparece no card - Máximo de 200 caracteres">{{insurances.comment}}</textarea>
+            </div>
+
+            <div class="formControl">
+                <label for="description">Preço Mensal do Plano R$</label>
+                <textarea name="description" placeholder="Descreva aqui seu plano para o pet">{{insurances.description}}</textarea>
+            </div>  
+
+
+
+            <div class="formControl checked">
+                <label for="check">O plano está ativado?</label>
+                <input class="check" name="check" type="checkbox">
+            </div>
+
+            <input type="submit" value="Editar">
+        </form>
+    </div>
+</div>

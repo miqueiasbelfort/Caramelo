@@ -21,6 +21,9 @@ const InsurancesHel = db.define('InsurancesHel', {
     description: {
         type: DataTypes.STRING,
         require: true
+    },
+    isActive: {
+        type: DataTypes.BOOLEAN
     }
 })
 
