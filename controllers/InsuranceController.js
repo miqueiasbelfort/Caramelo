@@ -18,7 +18,6 @@ module.exports = class InsuranceController {
 
         //console.log(user.name)
         let isCompany = user.isCompany
-        let active = true
 
         if(isCompany === 1){
             isCompany = true
@@ -26,7 +25,8 @@ module.exports = class InsuranceController {
             isCompany = false
         }
 
-        res.render("insurance/create", {isCompany, user, insurance, active})
+
+        res.render("insurance/create", {isCompany, user, insurance})
     }
 
     static async createInsurancePost(req, res){
