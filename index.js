@@ -13,6 +13,7 @@ const conn = require('./db/conn')
 //Chamando os Models
 const User = require('./models/User')
 const InsurancesHel = require("./models/InsurancesHel")
+const MyInsurances = require("./models/MyInsurances")
 
 // Importando as rotas
 const authRoutes = require('./routers/authRoutes')

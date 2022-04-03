@@ -11,6 +11,8 @@ router.post("/create", checkAuth, InsuranceController.createInsurancePost)
 router.get("/update-insurances/:id", checkAuth, InsuranceController.updateInsurance)
 router.post("/update-insurances", checkAuth, InsuranceController.updateInsurancePost)
 router.get("/my-insurance", checkAuth, InsuranceController.myInsurances)
+router.post("/my-insurance", checkAuth, InsuranceController.myInsurancesPost)
+router.get("/insurance-information/:id", checkAuth, InsuranceController.InformationInsurance)
 
 
 module.exports = router

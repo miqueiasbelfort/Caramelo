@@ -1,10 +1,17 @@
 const User = require("../models/User")
 const InsurancesHel = require("../models/InsurancesHel")
+const MyInsurances = require("../models/MyInsurances")
 
 module.exports = class InsuranceController {
 
-    static allHealthInsurance(req, res){
-        res.render("insurance/all")
+    static async allHealthInsurance(req, res){
+        const userId = req.session.userid
+        //console.log(userId)
+
+        const insurancesData = await InsurancesHel.findAll({include: User})
+        const insurances = insurancesData.map(result => result.get({plain: true})) 
+
+        res.render("insurance/all", {insurances})
     }
 
     static async createInsurance(req, res){
@@ -57,6 +64,32 @@ module.exports = class InsuranceController {
         res.render("insurance/my")
     }
 
+    static async myInsurancesPost(req, res){
+        const {id, name, price, description, userid} = req.body
+        console.log(id, name, price, userid)
+        const UserId = req.session.userid
+
+        const myInsurance = {
+            name,
+            price,
+            idCompany: userid,
+            description,
+            UserId: UserId
+        }
+
+        try {
+
+            await MyInsurances.create(myInsurance)
+
+            req.flash("message", "Parabéns por comprar um plano para seu PET")
+            req.session.save(() => {
+                res.redirect("/insurance/my-insurance")
+            })
+
+        } catch(err){console.log(err)}
+
+    }
+
     static async updateInsurance(req, res){
         const id = req.params.id
 
@@ -93,5 +126,22 @@ module.exports = class InsuranceController {
         } catch(err) {console.log(err)}
     }
 
+    static async InformationInsurance(req, res){
+        const id = req.params.id
+        
+        const insurance = await InsurancesHel.findOne({
+            include: User,
+            where: {id: id},
+            raw: true
+        })
+
+        //console.log(insurance.UserId)
+        const user = await User.findOne({
+            raw: true,
+            where: {id: insurance.UserId}
+        })
+        
+        res.render("insurance/info", {insurance, user})
+    }
 }
 

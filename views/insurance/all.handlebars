@@ -46,59 +46,20 @@
     <div class="InYourPlace">
         <h1>Planos de clinicas próximas a você</h1>
         <div class="CloseToMe">
-            <div class="cardOfInsurance">
-                <a href="/insurance/insurance/{{insurance.id}}">
-                    <header>
-                        <h3>SOS PET</h3>
-                        <img src="/img/pet.jpg" alt="pet">
-                        <span>A partir de</span>
-                        <strong>R$ 100 / mês</strong>
-                    </header>
-                    <span>Empresa: SOS PET LDTA</span>
-                    <p>O melhor plano para seu pet, você nunca mais vai se preoculpar com a sáude dele e seu dinheiro.</p>
-                </a>
-            </div>
-            
-            <div class="cardOfInsurance">
-                <a href="/insurance/insurance/{{insurance.id}}">
-                    <header>
-                        <h3>SOS PET</h3>
-                        <img src="/img/pet.jpg" alt="pet">
-                        <span>A partir de</span>
-                        <strong>R$ 100 / mês</strong>
-                    </header>
-                    <span>Empresa: SOS PET LDTA</span>
-                    <p>O melhor plano para seu pet, você nunca mais vai se preoculpar com a sáude dele e seu dinheiro.</p>
-                </a>
-            </div>
-            
-            <div class="cardOfInsurance">
-                <a href="/insurance/insurance/{{insurance.id}}">
-                    <header>
-                        <h3>SOS PET</h3>
-                        <img src="/img/pet.jpg" alt="pet">
-                        <span>A partir de</span>
-                        <strong>R$ 100 / mês</strong>
-                    </header>
-                    <span>Empresa: SOS PET LDTA</span>
-                    <p>O melhor plano para seu pet, você nunca mais vai se preoculpar com a sáude dele e seu dinheiro.</p>
-                </a>
-            </div>
-
-            <div class="cardOfInsurance">
-                <a href="/insurance/insurance/{{insurance.id}}">
-                    <header>
-                        <h3>SOS PET</h3>
-                        <img src="/img/pet.jpg" alt="pet">
-                        <span>A partir de</span>
-                        <strong>R$ 100 / mês</strong>
-                    </header>
-                    <span>Empresa: SOS PET LDTA</span>
-                    <p>O melhor plano para seu pet, você nunca mais vai se preoculpar com a sáude dele e seu dinheiro.</p>
-                </a>
-            </div>
-
-            
+           {{#each insurances}}
+                <div class="cardOfInsurance">
+                    <a href="/insurance/insurance-information/{{this.id}}">
+                        <header>
+                            <h3>{{this.name}}</h3>
+                            <img src="/img/pet.jpg" alt="pet">
+                            <span>A partir de</span>
+                            <strong>R$ {{this.price}} / mês</strong>
+                        </header>
+                        <span>Empresa: {{this.User.name}}</span>
+                        <p>{{this.comment}}</p>
+                    </a>
+                </div> 
+           {{/each}}           
         </div>
     </div>
 </div>
