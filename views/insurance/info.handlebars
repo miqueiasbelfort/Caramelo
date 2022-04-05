@@ -1,15 +1,23 @@
-<h1>Informações do plano de saúde PET</h1>
-<h2>{{insurance.name}}</h2>
-<b>R$ {{insurance.price}} / mês</b>
-<span>{{insurance.comment}}</span>
-<p>{{insurance.description}}</p>
-<h1>Informações da empresa</h1>
-<h2>{{user.name}}</h2>
-<form action="/insurance/my-insurance" method="post">
-    <input type="hidden" name="id" value="{{insurance.id}}">
-    <input type="hidden" name="name" value="{{insurance.name}}">
-    <input type="hidden" name="price" value="{{insurance.price}}">
-    <input type="hidden" name="description" value="{{insurance.description}}">
-    <input type="hidden" name="userid" value="{{user.id}}">
-    <input type="submit" class="btn" value="Comprar Plano">
-</form>
+<div class="containerMyInsurances">
+    <div class="containerInfo">
+        <h1 class="title">Informações do plano de saúde PET</h1>
+        <h2 class="nameOfInsurance">Nome do plano: {{insurance.name}}</h2>
+        <h3 class="nameOfCompany">Empresa: {{user.name}}</h3>
+        <b class="priceOfInsurance">Valor: R$ {{insurance.price}} / mês</b>
+        <span class="commetInfo">{{insurance.comment}}</span>
+        <p class="descriptioInfo"><b>Descrição:</b> {{insurance.description}}</p>
+        {{#if company}}
+            
+        {{else}}
+            <form action="/insurance/my-insurance" method="post">
+                <input type="hidden" name="id" value="{{insurance.id}}">
+                <input type="hidden" name="name" value="{{insurance.name}}">
+                <input type="hidden" name="price" value="{{insurance.price}}">
+                <input type="hidden" name="description" value="{{insurance.description}}">
+                <input type="hidden" name="userid" value="{{user.id}}">
+                <input type="submit" class="btn" value="Comprar Plano">
+            </form>
+        {{/if}}
+    </div>
+
+</div>

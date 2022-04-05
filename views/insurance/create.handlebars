@@ -27,22 +27,20 @@
             <input type="submit" value="Criar Plano PET">
         </form>
 
+            <div class="AllMyInsurances">
+                <h1>{{user.name}}, aqui está seus planos para PETs</h1>
 
-        <div class="AllMyInsurances">
-            <h1>{{user.name}}, aqui está seus planos para PETs</h1>
-
-            <ul>
-                {{#each insurance}}
-                    <li class="insurancesContainer">
-                        <a href="/insurance/update-insurances/{{this.id}}">
-                            <b>Nome do plano: <span>{{this.name}}</span></b>
-                            <b>Valor: R$ <span>{{this.price}}</span></b>
-                            <span class="Active">Plano Ativo</span>
-                        </a> 
-                    </li>
-                {{/each}}
-            </ul>
-
-        </div>
+                <ul>
+                    {{#each insurance}}
+                        <li class="insurancesContainer">
+                            <a href="/insurance/update-insurances/{{this.id}}">
+                                <b>Nome do plano: <span>{{this.name}}</span></b>
+                                <b>Valor: R$ <span>{{this.price}}</span></b>
+                                <span class="Active">Plano Ativo</span>
+                            </a> 
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
     </div>
 </div>

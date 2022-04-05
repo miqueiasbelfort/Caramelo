@@ -12,6 +12,7 @@ router.get("/update-insurances/:id", checkAuth, InsuranceController.updateInsura
 router.post("/update-insurances", checkAuth, InsuranceController.updateInsurancePost)
 router.get("/my-insurance", checkAuth, InsuranceController.myInsurances)
 router.post("/my-insurance", checkAuth, InsuranceController.myInsurancesPost)
+router.post("/my-insurance/remove", checkAuth, InsuranceController.myInsurancesDelete)
 router.get("/insurance-information/:id", checkAuth, InsuranceController.InformationInsurance)
 
 

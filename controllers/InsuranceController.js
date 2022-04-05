@@ -60,8 +60,21 @@ module.exports = class InsuranceController {
         } catch(err) {console.log(err)}
     }
 
-    static myInsurances(req, res){
-        res.render("insurance/my")
+    static async myInsurances(req, res){
+
+        const userId = req.session.userid
+        const company = req.session.company
+
+        const user = await User.findOne({where: {id: userId}})
+        if(user.isCompany == 1){
+            req.session.save(() => {
+                res.redirect("/insurance/healthInsurance")
+            })
+            return
+        }
+        const myInsurances = await MyInsurances.findAll({raw: true, where: {UserId: userId}})
+
+        res.render("insurance/my", {myInsurances})
     }
 
     static async myInsurancesPost(req, res){
@@ -73,6 +86,7 @@ module.exports = class InsuranceController {
             name,
             price,
             idCompany: userid,
+            idInsurance: id,
             description,
             UserId: UserId
         }
@@ -90,12 +104,29 @@ module.exports = class InsuranceController {
 
     }
 
+    static async myInsurancesDelete(req, res){
+        const id = req.body.id
+
+        try {
+
+            await MyInsurances.destroy({where: {id: id}})
+            req.flash("message", "Plano Veterinario removido com sucesso!")
+            req.session.save(() => {
+                res.redirect("/insurance/my-insurance")
+            })
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     static async updateInsurance(req, res){
         const id = req.params.id
 
         const insurances = await InsurancesHel.findOne({raw: true, where: {id: id}})
+        let thereAreInsurances = true
 
-        res.render("insurance/update", {insurances})
+        res.render("insurance/update", {insurances, thereAreInsurances})
     }
 
     static async updateInsurancePost(req, res){
@@ -128,6 +159,7 @@ module.exports = class InsuranceController {
 
     static async InformationInsurance(req, res){
         const id = req.params.id
+        const company = req.session.company
         
         const insurance = await InsurancesHel.findOne({
             include: User,
@@ -141,7 +173,7 @@ module.exports = class InsuranceController {
             where: {id: insurance.UserId}
         })
         
-        res.render("insurance/info", {insurance, user})
+        res.render("insurance/info", {insurance, user, company})
     }
 }
 

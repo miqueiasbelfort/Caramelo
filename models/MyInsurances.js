@@ -18,6 +18,11 @@ const MyInsurances = db.define("myInsurance", {
         require: true,
         allowNull: true
     },
+    idInsurance: {
+        type: DataTypes.INTEGER,
+        require: true,
+        allowNull: true
+    },
     description: {
         type: DataTypes.STRING,
         require: true

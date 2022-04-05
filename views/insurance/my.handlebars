@@ -1,1 +1,21 @@
-<h1>My Health Insurances</h1>
+<div class="containerMyInsurances">
+    <h1>Todos os meus planos veterinarios</h1>
+    
+    <ul class="listOfMyInsurances">
+        {{#each myInsurances}}
+            <li class="myinsurance">
+                <div>
+                    <h2><a href="/insurance/insurance-information/{{this.idInsurance}}">{{this.name}}</a></h2>
+                    <b>R$ {{this.price}} / mês</b>
+                    <p>{{this.description}}</p>
+                </div>
+                <div>
+                    <form action="/insurance/my-insurance/remove" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <input type="submit" class="btn" value="Remover">
+                    </form>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+</div>
