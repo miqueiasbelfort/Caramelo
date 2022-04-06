@@ -6,8 +6,19 @@
         <b class="priceOfInsurance">Valor: R$ {{insurance.price}} / mês</b>
         <span class="commetInfo">{{insurance.comment}}</span>
         <p class="descriptioInfo"><b>Descrição:</b> {{insurance.description}}</p>
-        {{#if company}}
-            
+        <form action="/insurance/liked" method="post">
+            <input type="hidden" name="id" value="{{insurance.id}}">
+            <button type="submit" class="btnLike">
+                Like
+                {{#if insuranceLikes}}
+                    <i class="bi bi-suit-heart-fill"></i>
+                {{else}}
+                    <i class="bi bi-suit-heart"></i>
+                {{/if}}
+            </button>
+        </form>
+        
+        {{#if company}}   
         {{else}}
             <form action="/insurance/my-insurance" method="post">
                 <input type="hidden" name="id" value="{{insurance.id}}">

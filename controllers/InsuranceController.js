@@ -32,7 +32,6 @@ module.exports = class InsuranceController {
             isCompany = false
         }
 
-
         res.render("insurance/create", {isCompany, user, insurance})
     }
 
@@ -157,6 +156,20 @@ module.exports = class InsuranceController {
         } catch(err) {console.log(err)}
     }
 
+    static async updateInsuranceRemove(req, res){
+        const id = req.body.id
+        
+        try {
+
+            await InsurancesHel.destroy({raw: true, where: {id: id}})
+            req.flash("message", "Plano Veterinario deletado")
+            req.session.save(() => {
+                res.redirect("/insurance/create")
+            })
+
+        } catch(err) {console.log(err)}
+    }
+
     static async InformationInsurance(req, res){
         const id = req.params.id
         const company = req.session.company
@@ -172,8 +185,36 @@ module.exports = class InsuranceController {
             raw: true,
             where: {id: insurance.UserId}
         })
+
+        let insuranceLikes = insurance.likes
+        if(insuranceLikes >= 1){
+            insuranceLikes = true
+        } else {
+            insuranceLikes = false
+        }
         
-        res.render("insurance/info", {insurance, user, company})
+        res.render("insurance/info", {insurance, user, company, insuranceLikes})
+    }
+
+    static async liked(req, res){
+        const id = req.body.id
+
+        let like = 1
+        like++
+        
+        const insurance = {
+            likes: like
+        }
+
+        try {
+
+            await InsurancesHel.update(insurance, {where: {id: id}})
+            req.session.save(() => {
+                res.redirect("/insurance/healthInsurance")
+            })
+
+        } catch (err) {console.log(err)}
+
     }
 }
 

@@ -28,10 +28,14 @@
 
             <div class="formControl checked">
                 <label for="check">O plano está ativado?</label>
-                <input class="check" name="check" type="checkbox">
+                <input class="check" name="check" type="checkbox" checked>
             </div>
 
             <input type="submit" value="Editar">
+        </form>
+        <form action="/insurance/update-insurances/remove" method="post">
+            <input type="hidden" name="id" value="{{insurances.id}}">
+            <input type="submit" class="btn" value="Excluir">
         </form>
     </div>
 </div>

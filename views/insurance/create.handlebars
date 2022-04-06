@@ -36,7 +36,11 @@
                             <a href="/insurance/update-insurances/{{this.id}}">
                                 <b>Nome do plano: <span>{{this.name}}</span></b>
                                 <b>Valor: R$ <span>{{this.price}}</span></b>
-                                <span class="Active">Plano Ativo</span>
+                                {{#if this.isActive}}
+                                    <span class="Active">Plano Ativo</span>
+                                {{else}}
+                                    <span class="notActive">Plano Desativado</span>
+                                {{/if}}
                             </a> 
                         </li>
                     {{/each}}
