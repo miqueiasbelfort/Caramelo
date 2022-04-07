@@ -198,17 +198,35 @@ module.exports = class InsuranceController {
 
     static async liked(req, res){
         const id = req.body.id
+        const userId = req.session.userid
 
-        let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})       
+        let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})
+        const userData = await User.findOne({raw: true,where: {id: userId}})    //errado   
         
         let like = likeData.likes + 1
         const insurance = {
             likes: like
         }
+        // errado
+        let liked = true
+        const user = {
+            liked: liked
+        }
+
+        const isLiked = userData.liked //errado
 
         try {
-
+            //errado
+            if(isLiked){
+                req.flash("message", "você já deu like!")
+                req.session.save(() => {
+                    res.redirect(`/insurance/insurance-information/${id}`)
+                })
+                return
+            }
             await InsurancesHel.update(insurance, {where: {id: id}})
+            await User.update(user, {where: {id: userId}})
+
             req.session.save(() => {
                 res.redirect(`/insurance/insurance-information/${id}`)
             })
