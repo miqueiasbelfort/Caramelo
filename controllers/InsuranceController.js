@@ -199,9 +199,9 @@ module.exports = class InsuranceController {
     static async liked(req, res){
         const id = req.body.id
 
-        let like = 1
-        like++
+        let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})       
         
+        let like = likeData.likes + 1
         const insurance = {
             likes: like
         }
@@ -210,7 +210,7 @@ module.exports = class InsuranceController {
 
             await InsurancesHel.update(insurance, {where: {id: id}})
             req.session.save(() => {
-                res.redirect("/insurance/healthInsurance")
+                res.redirect(`/insurance/insurance-information/${id}`)
             })
 
         } catch (err) {console.log(err)}

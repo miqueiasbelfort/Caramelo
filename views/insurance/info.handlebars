@@ -11,7 +11,8 @@
             <button type="submit" class="btnLike">
                 Like
                 {{#if insuranceLikes}}
-                    <i class="bi bi-suit-heart-fill"></i>
+                    <i class="bi bi-suit-heart-fill" id="liked"></i>
+                    <span>{{insurance.likes}}</span>
                 {{else}}
                     <i class="bi bi-suit-heart"></i>
                 {{/if}}

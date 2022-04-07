@@ -311,6 +311,24 @@ form input[type="submit"]:hover{
 .containerInfo span {
     text-decoration: underline;
 }
+.btnLike{
+    padding: 7px 10px;
+    cursor: pointer;
+    border-radius: 7px;
+    border: none;
+    background: #ff8045ac;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+}
+.btnLike span{
+    text-decoration: none;
+}
+#liked{
+    color: #ff2600;
+}
 
 /*MY INSURANCES*/
 .containerMyInsurances{
