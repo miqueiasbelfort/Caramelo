@@ -14,7 +14,8 @@ const LikesOfInsurances = db.define("LikesOfInsurances", {
         require: true
     },
     isLiked: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
     }
 })
 

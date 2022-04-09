@@ -7,22 +7,22 @@
 
             <div class="formControl">
                 <label for="namePlam">Nome do Plano</label>
-                <input type="text" name="namePlam" placeholder="Nome do plano de saúde pet">
+                <input type="text" name="namePlam" placeholder="Nome do plano de saúde pet" required> 
             </div>
 
             <div class="formControl">
                 <label for="price">Preço Mensal do Plano R$</label>
-                <input type="number" name="price" placeholder="EX: 200">
+                <input type="number" name="price" placeholder="EX: 200" required>
             </div>
 
             <div class="formControl">
                 <label for="comment">Comentario do Card</label>
-                <textarea name="comment" placeholder="Adicione um comentaria que aparece no card - Máximo de 200 caracteres"></textarea>
+                <textarea name="comment" placeholder="Adicione um comentaria que aparece no card - Máximo de 200 caracteres" required></textarea>
             </div>
 
             <div class="formControl">
-                <label for="description">Preço Mensal do Plano R$</label>
-                <textarea name="description" placeholder="Descreva aqui seu plano para o pet"></textarea>
+                <label for="description">Descrição</label>
+                <textarea name="description" placeholder="Descreva aqui seu plano para o pet" required></textarea>
             </div>
 
             <input type="submit" value="Criar Plano PET">
@@ -31,21 +31,21 @@
             <div class="AllMyInsurances">
                 <h1>{{user.name}}, aqui está seus planos para PETs</h1>
 
-                <ul>
-                    {{#each insurance}}
-                        <li class="insurancesContainer">
-                            <a href="/insurance/update-insurances/{{this.id}}">
-                                <b>Nome do plano: <span>{{this.name}}</span></b>
-                                <b>Valor: R$ <span>{{this.price}}</span></b>
-                                {{#if this.isActive}}
-                                    <span class="Active">Plano Ativo</span>
-                                {{else}}
-                                    <span class="notActive">Plano Desativado</span>
-                                {{/if}}
-                            </a> 
-                        </li>
-                    {{/each}}
-                </ul>
+                    <ul>
+                        {{#each insurance}}
+                                <li class="insurancesContainer">
+                                    <a href="/insurance/update-insurances/{{this.id}}">
+                                        <b>Nome do plano: <span>{{this.name}}</span></b>
+                                        <b>Valor: R$ <span>{{this.price}}</span></b>
+                                        {{#if this.isActive}}
+                                            <span class="Active">Plano Ativo</span>
+                                        {{else}}
+                                            <span class="notActive">Plano Desativado</span>
+                                        {{/if}}
+                                    </a> 
+                                </li>
+                        {{/each}}
+                    </ul>
             </div>
     </div>
 </div>

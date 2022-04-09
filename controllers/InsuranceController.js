@@ -24,6 +24,7 @@ module.exports = class InsuranceController {
     }
 
     static async createInsurance(req, res){
+
         const userid = req.session.userid
 
         const user = await User.findOne({
@@ -31,6 +32,7 @@ module.exports = class InsuranceController {
             where: {id: userid}
         })
         const insurance = await InsurancesHel.findAll({raw: true, where: {UserId: userid}})
+        //console.log(insurance)
 
         //console.log(user.name)
         let isCompany = user.isCompany
@@ -214,19 +216,8 @@ module.exports = class InsuranceController {
         const userId = req.session.userid
         const insuranceName = req.body.insuranceName
         const userName = req.body.userName
-
         let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})
         const user = await User.findOne({raw: true, where: {id: userId}})
-
-
-        const isLikedOfData = await LikesOfInsurances.findOne({raw: true, where: {nameUser: user.name, nameInsurance: likeData.name}})
-        //console.log(isLikedOfData)
-        const isLiked = isLikedOfData.isLiked
-        
-        let like = likeData.likes + 1
-        const insurance = {
-            likes: like
-        }
 
         const likesOfInsurances = {
             nameUser: userName,
@@ -234,18 +225,31 @@ module.exports = class InsuranceController {
             isLiked: true,
             InsurancesHelId: likeData.id
         }
+        try {
+            await LikesOfInsurances.create(likesOfInsurances)
+            req.session.save(() => {
+                res.redirect(`/insurance/insurance-information/${id}`)
+            })
+        } catch (err) {console.log(err)}
+
+        
+        let like = likeData.likes + 1
+        const insurance = {
+            likes: like
+        }
+
+        const isLikedOfData = await LikesOfInsurances.findOne({raw: true, where: {nameUser: user.name, nameInsurance: likeData.name}})
+        //console.log(isLikedOfData)
+        const isLikedTeste = isLikedOfData.isLiked
 
         try {
-
-           if(isLiked){
+            if(isLikedTeste === null){
                 req.flash("message", "Você já deixou seu like!")
                 req.session.save(() => {
                     res.redirect(`/insurance/insurance-information/${id}`)
                 })
                 return
            }
-
-           await LikesOfInsurances.create(likesOfInsurances)
            await InsurancesHel.update(insurance, {where: {id: id}})
            req.session.save(() => {
                res.redirect(`/insurance/insurance-information/${id}`)
