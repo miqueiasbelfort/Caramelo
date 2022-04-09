@@ -1,6 +1,7 @@
 const User = require("../models/User")
 const InsurancesHel = require("../models/InsurancesHel")
 const MyInsurances = require("../models/MyInsurances")
+const LikesOfInsurances = require("../models/LikesOfInsurances")
 
 module.exports = class InsuranceController {
 
@@ -8,10 +9,18 @@ module.exports = class InsuranceController {
         const userId = req.session.userid
         //console.log(userId)
 
-        const insurancesData = await InsurancesHel.findAll({include: User})
-        const insurances = insurancesData.map(result => result.get({plain: true})) 
+        const user =  await User.findOne({raw: true, where: {id: userId}})
+        const localizationOfUser = user.localization
+        const isCompany = user.isCompany
 
-        res.render("insurance/all", {insurances})
+
+        const insurancesData = await InsurancesHel.findAll({
+            include: User,
+            where: {localization: localizationOfUser, isActive: true}
+        })
+        const insurancesAll = insurancesData.map(result => result.get({plain: true})) 
+
+        res.render("insurance/all", {insurancesAll, isCompany})
     }
 
     static async createInsurance(req, res){
@@ -36,13 +45,14 @@ module.exports = class InsuranceController {
     }
 
     static async createInsurancePost(req, res){
-        const { namePlam, price, comment, description } = req.body
+        const { namePlam, price, comment, description, localization } = req.body
 
         const insurance = {
             name: namePlam,
             price,
             comment,
             description,
+            localization,
             UserId: req.session.userid
         }
 
@@ -172,16 +182,19 @@ module.exports = class InsuranceController {
 
     static async InformationInsurance(req, res){
         const id = req.params.id
+        const userId = req.session.userid
         const company = req.session.company
         
-        const insurance = await InsurancesHel.findOne({
+        const insurance = await InsurancesHel.findOne({ // O plano veterinarico
             include: User,
             where: {id: id},
             raw: true
         })
 
+        const user = await User.findOne({raw: true, where: {id: userId}}) //Usuário que está conectado
+
         //console.log(insurance.UserId)
-        const user = await User.findOne({
+        const userCompany = await User.findOne({ //Usuário que criou o plano veterinarico 
             raw: true,
             where: {id: insurance.UserId}
         })
@@ -193,43 +206,50 @@ module.exports = class InsuranceController {
             insuranceLikes = false
         }
         
-        res.render("insurance/info", {insurance, user, company, insuranceLikes})
+        res.render("insurance/info", {insurance, userCompany, company, insuranceLikes, user})
     }
 
     static async liked(req, res){
         const id = req.body.id
         const userId = req.session.userid
+        const insuranceName = req.body.insuranceName
+        const userName = req.body.userName
 
         let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})
-        const userData = await User.findOne({raw: true,where: {id: userId}})    //errado   
+        const user = await User.findOne({raw: true, where: {id: userId}})
+
+
+        const isLikedOfData = await LikesOfInsurances.findOne({raw: true, where: {nameUser: user.name, nameInsurance: likeData.name}})
+        //console.log(isLikedOfData)
+        const isLiked = isLikedOfData.isLiked
         
         let like = likeData.likes + 1
         const insurance = {
             likes: like
         }
-        // errado
-        let liked = true
-        const user = {
-            liked: liked
+
+        const likesOfInsurances = {
+            nameUser: userName,
+            nameInsurance: insuranceName,
+            isLiked: true,
+            InsurancesHelId: likeData.id
         }
 
-        const isLiked = userData.liked //errado
-
         try {
-            //errado
-            if(isLiked){
-                req.flash("message", "você já deu like!")
+
+           if(isLiked){
+                req.flash("message", "Você já deixou seu like!")
                 req.session.save(() => {
                     res.redirect(`/insurance/insurance-information/${id}`)
                 })
                 return
-            }
-            await InsurancesHel.update(insurance, {where: {id: id}})
-            await User.update(user, {where: {id: userId}})
+           }
 
-            req.session.save(() => {
-                res.redirect(`/insurance/insurance-information/${id}`)
-            })
+           await LikesOfInsurances.create(likesOfInsurances)
+           await InsurancesHel.update(insurance, {where: {id: id}})
+           req.session.save(() => {
+               res.redirect(`/insurance/insurance-information/${id}`)
+           })
 
         } catch (err) {console.log(err)}
 

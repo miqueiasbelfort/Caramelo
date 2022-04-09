@@ -46,20 +46,20 @@
     <div class="InYourPlace">
         <h1>Planos de clinicas próximas a você</h1>
         <div class="CloseToMe">
-           {{#each insurances}}
-                <div class="cardOfInsurance">
-                    <a href="/insurance/insurance-information/{{this.id}}">
-                        <header>
-                            <h3>{{this.name}}</h3>
-                            <img src="/img/pet.jpg" alt="pet">
-                            <span>A partir de</span>
-                            <strong>R$ {{this.price}} / mês</strong>
-                        </header>
-                        <span>Empresa: {{this.User.name}}</span>
-                        <p>{{this.comment}}</p>
-                    </a>
-                </div> 
-           {{/each}}           
+                {{#each insurancesAll}}
+                    <div class="cardOfInsurance">
+                        <a href="/insurance/insurance-information/{{this.id}}">
+                            <header>
+                                <h3>{{this.name}}</h3>
+                                <img src="/img/pet.jpg" alt="pet">
+                                <span>A partir de</span>
+                                <strong>R$ {{this.price}} / mês</strong>
+                            </header>
+                            <span>Empresa: {{this.User.name}}</span>
+                            <p>{{this.comment}}</p>
+                        </a>
+                    </div> 
+                {{/each}}        
         </div>
     </div>
 </div>

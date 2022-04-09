@@ -14,6 +14,7 @@ const conn = require('./db/conn')
 const User = require('./models/User')
 const InsurancesHel = require("./models/InsurancesHel")
 const MyInsurances = require("./models/MyInsurances")
+const Likes = require("./models/LikesOfInsurances")
 
 // Importando as rotas
 const authRoutes = require('./routers/authRoutes')

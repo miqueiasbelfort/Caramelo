@@ -2,12 +2,16 @@
     <div class="containerInfo">
         <h1 class="title">Informações do plano de saúde PET</h1>
         <h2 class="nameOfInsurance">Nome do plano: {{insurance.name}}</h2>
-        <h3 class="nameOfCompany">Empresa: {{user.name}}</h3>
+        <h3 class="nameOfCompany">Empresa: {{userCompany.name}}</h3>
         <b class="priceOfInsurance">Valor: R$ {{insurance.price}} / mês</b>
         <span class="commetInfo">{{insurance.comment}}</span>
+        <p><b>Localização:</b> {{insurance.localization}}</p>
         <p class="descriptioInfo"><b>Descrição:</b> {{insurance.description}}</p>
+
         <form action="/insurance/liked" method="post">
             <input type="hidden" name="id" value="{{insurance.id}}">
+            <input type="hidden" name="insuranceName" value="{{insurance.name}}">
+            <input type="hidden" name="userName" value="{{user.name}}">
             <button type="submit" class="btnLike">
                 Like
                 {{#if insuranceLikes}}
@@ -26,7 +30,7 @@
                 <input type="hidden" name="name" value="{{insurance.name}}">
                 <input type="hidden" name="price" value="{{insurance.price}}">
                 <input type="hidden" name="description" value="{{insurance.description}}">
-                <input type="hidden" name="userid" value="{{user.id}}">
+                <input type="hidden" name="userid" value="{{userCompany.id}}">
                 <input type="submit" class="btn" value="Comprar Plano">
             </form>
         {{/if}}

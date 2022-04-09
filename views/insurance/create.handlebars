@@ -3,6 +3,7 @@
         <h1>Criar plano PET</h1>
         <p>Olá {{user.name}}, vamos cuidar dos pet do mundo hoje!</p>
         <form action="/insurance/create" method="post">
+            <input type="hidden" name="localization" value="{{user.localization}}">
 
             <div class="formControl">
                 <label for="namePlam">Nome do Plano</label>

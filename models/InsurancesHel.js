@@ -22,6 +22,10 @@ const InsurancesHel = db.define('InsurancesHel', {
         type: DataTypes.STRING,
         require: true
     },
+    localization: {
+        type: DataTypes.STRING,
+        require: true
+    },
     likes: {
         type: DataTypes.INTEGER,
     },

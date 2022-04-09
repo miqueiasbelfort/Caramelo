@@ -22,9 +22,6 @@ const User = db.define('User', {
     },
     isCompany: {
         type: DataTypes.BOOLEAN,
-    },
-    liked: { //errado
-        type: DataTypes.BOOLEAN
     }
 })
 
