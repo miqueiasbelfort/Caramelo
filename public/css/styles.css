@@ -364,6 +364,31 @@ form input[type="submit"]:hover{
     text-decoration: underline;
 }
 
+/*Home*/
+.home {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.titleHome{
+    text-align: center;
+    color: #A97E2A;
+    margin-top: 1.2em;
+}
+.descriptionHome{
+    text-align: center;
+    margin-top: 1em;
+    font-weight: 600;
+}
+.link {
+    margin-top: 1em;
+    text-align: center;
+    font-weight: 600;
+    color: #A97E2A;
+}
+
 /*FOOTER*/
 .footer{
     position: absolute;
