@@ -18,9 +18,18 @@ module.exports = class InsuranceController {
             include: User,
             where: {localization: localizationOfUser, isActive: true}
         })
-        const insurancesAll = insurancesData.map(result => result.get({plain: true})) 
+        const insurancesAll = insurancesData.map(result => result.get({plain: true}))
 
-        res.render("insurance/all", {insurancesAll, isCompany})
+        //the insurances with likes more of the 100
+        const likesThePopulary = await InsurancesHel.findAll({include: User, where: {likes: 100}})
+        const likesPopulary = likesThePopulary.map(result => result.get({plain: true}))
+
+        let lessThenThree = true
+        if(likesPopulary.length > 3){
+            lessThenThree = false
+        }
+
+        res.render("insurance/all", {insurancesAll, isCompany, likesPopulary, lessThenThree})
     }
 
     static async createInsurance(req, res){
@@ -212,6 +221,7 @@ module.exports = class InsuranceController {
     }
 
     static async liked(req, res){
+        
         const id = req.body.id
         const userId = req.session.userid
 
@@ -219,7 +229,7 @@ module.exports = class InsuranceController {
         const {insuranceName, userName} = req.body
         
         let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})
-        
+
         const user = await User.findOne({raw: true, where: {id: userId}})
 
         const isLikedDB = await LikesOfInsurances.findOne({raw: true, where: {nameUser: userName, nameInsurance: insuranceName}})
@@ -232,7 +242,7 @@ module.exports = class InsuranceController {
         const dbLike = {
             nameUser: userName,
             nameInsurance: insuranceName,
-            insuranceHelId: id
+            InsurancesHelId: id
         }
 
         try {
