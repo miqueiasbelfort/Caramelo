@@ -214,46 +214,46 @@ module.exports = class InsuranceController {
     static async liked(req, res){
         const id = req.body.id
         const userId = req.session.userid
-        const insuranceName = req.body.insuranceName
-        const userName = req.body.userName
+
+        // db like
+        const {insuranceName, userName} = req.body
+        
         let likeData = await InsurancesHel.findOne({raw: true, where: {id: id}})
+        
         const user = await User.findOne({raw: true, where: {id: userId}})
 
-        const likesOfInsurances = {
-            nameUser: userName,
-            nameInsurance: insuranceName,
-            isLiked: true,
-            InsurancesHelId: likeData.id
-        }
-        try {
-            await LikesOfInsurances.create(likesOfInsurances)
-            req.session.save(() => {
-                res.redirect(`/insurance/insurance-information/${id}`)
-            })
-        } catch (err) {console.log(err)}
+        const isLikedDB = await LikesOfInsurances.findOne({raw: true, where: {nameUser: userName, nameInsurance: insuranceName}})
 
-        
         let like = likeData.likes + 1
         const insurance = {
             likes: like
         }
 
-        const isLikedOfData = await LikesOfInsurances.findOne({raw: true, where: {nameUser: user.name, nameInsurance: likeData.name}})
-        //console.log(isLikedOfData)
-        const isLikedTeste = isLikedOfData.isLiked
+        const dbLike = {
+            nameUser: userName,
+            nameInsurance: insuranceName,
+            insuranceHelId: id
+        }
 
         try {
-            if(isLikedTeste === null){
-                req.flash("message", "Você já deixou seu like!")
+            
+            
+            if(isLikedDB){
+                req.flash("message", "Não é possivel da like novamente!")
                 req.session.save(() => {
                     res.redirect(`/insurance/insurance-information/${id}`)
                 })
                 return
-           }
-           await InsurancesHel.update(insurance, {where: {id: id}})
-           req.session.save(() => {
-               res.redirect(`/insurance/insurance-information/${id}`)
-           })
+            } else {
+                await LikesOfInsurances.create(dbLike)
+            }
+
+            await InsurancesHel.update(insurance, {where: {id: id}})
+
+            req.session.save(() => {
+                res.redirect(`/insurance/insurance-information/${id}`)
+            })
+
 
         } catch (err) {console.log(err)}
 
